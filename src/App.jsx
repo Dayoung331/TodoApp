@@ -12,6 +12,7 @@ import TodoList from "./components/TodoList";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapExample from "./practice/BootstrapExample";
+import { TodoProvider } from "./components/TodoProvider";
 
 function App() {
   return (
@@ -34,7 +35,9 @@ function App() {
         {/* <Rendering /> */}
         {/* <StopWatch /> */}
         {/* <Timer /> */}
-        <TodoList />
+        <TodoProvider>
+          <TodoList />
+        </TodoProvider>
         {/* <BootstrapExample /> */}
       </div>
     </>

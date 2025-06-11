@@ -1,66 +1,30 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 
+import { useTodo } from "./TodoProvider";
+
 import TodoInput from "./TodoInput";
 import Search from "./Search";
 import ColorBar from "./ColorBar";
 import TodoItems from "./TodoItems";
 
-let nextId = 0;
-
 export default function TodoList() {
-  const [toDoList, setToDoList] = useState(() => {
-    const saved = sessionStorage.getItem("toDoList");
-    return saved ? JSON.parse(saved) : [];
-  });
-  const [toDoInput, setToDoInput] = useState("");
-  const [toDoColor, setToDoColor] = useState("#FFB3BA");
-  const [searchInput, setSearchInput] = useState("");
+  const {
+    toDoList,
+    toDoColor,
+    setToDoColor,
+    searchInput,
+    setSearchInput,
+    editId,
+    editInput,
+    setEditInput,
+    addToDo,
+    deleteToDo,
+    startEditToDo,
+    completeEditToDo,
+  } = useTodo();
 
-  // 수정을 위한 state
-  const [editId, setEditId] = useState(null);
-  const [editInput, setEditInput] = useState("");
-
-  useEffect(() => {
-    sessionStorage.setItem("toDoList", JSON.stringify(toDoList));
-  }, [toDoList]);
-
-  const addToDo = () => {
-    if (toDoInput.trim() === "") {
-      alert("할 일을 입력해 주세요!");
-      return;
-    }
-
-    const newToDo = {
-      id: nextId++,
-      text: toDoInput,
-      color: toDoColor,
-    };
-    setToDoList([...toDoList, newToDo]);
-    setToDoInput("");
-  };
-
-  const deleteToDo = (id) => {
-    setToDoList(toDoList.filter((todo) => todo.id !== id));
-  };
-
-  const editToDo = (id) => {
-    console.log("수정 클릭됨.");
-
-    const target = toDoList.find((todo) => todo.id === id);
-    setEditId(id);
-    setEditInput(target.text);
-  };
-
-  const completeEditToDo = (id, newText) => {
-    setToDoList(
-      toDoList.map((todo) =>
-        todo.id === id ? { ...todo, text: newText } : todo
-      )
-    );
-    setEditId(null);
-    setEditInput("");
-  };
+  console.log(`부모 컴포넌트에서 searchInput 잘 넘어갔나? ${searchInput}`);
 
   return (
     <div
@@ -72,12 +36,7 @@ export default function TodoList() {
         Todo App
       </h1>
 
-      <TodoInput
-        bgColor={toDoColor}
-        inputChange={toDoInput}
-        onInputChange={(e) => setToDoInput(e.target.value)}
-        onBtnClick={addToDo}
-      />
+      <TodoInput bgColor={toDoColor} onBtnClick={addToDo} />
 
       <Search searchInput={searchInput} onSearchChange={setSearchInput} />
 
@@ -94,13 +53,13 @@ export default function TodoList() {
       </h1>
 
       <TodoItems
-        toDoList={toDoList}
-        searchInput={searchInput}
-        onDelete={deleteToDo}
-        editId={editId}
-        editInput={editInput}
+        toDoList={toDoList} // 할 일 목록을 보여주기 위함
+        searchInput={searchInput} // 검색 스트링에 해당하는 할 일만 보여주기 위함
+        onDelete={deleteToDo} // 클릭했을 때 삭제하기 위함
+        editId={editId} // 수정하려는 할 일
+        editInput={editInput} // 수정하고자 하는 텍스트
         setEditInput={setEditInput}
-        onEdit={editToDo}
+        onEditStart={startEditToDo}
         onEditComplete={completeEditToDo}
       />
     </div>

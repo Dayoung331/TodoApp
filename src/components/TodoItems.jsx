@@ -7,9 +7,11 @@ export default function TodoItems({
   editId,
   editInput,
   setEditInput,
-  onEdit,
+  onEditStart,
   onEditComplete,
 }) {
+  console.log(`searchInput 잘 넘어왔나? ${searchInput}`);
+  console.log(`toDoList는? ${toDoList}`);
   const listToShow =
     searchInput.trim() === ""
       ? toDoList
@@ -36,7 +38,7 @@ export default function TodoItems({
           isEditing={editId === elem.id}
           editInput={editInput}
           setEditInput={setEditInput}
-          onEdit={onEdit}
+          onEditStart={onEditStart}
           onEditComplete={onEditComplete}
         />
       ))}

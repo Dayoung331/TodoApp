@@ -6,7 +6,7 @@ export default function TodoItem({
   isEditing,
   editInput,
   setEditInput,
-  onEdit,
+  onEditStart,
   onEditComplete,
 }) {
   const handleKeyPress = (e) => {
@@ -20,13 +20,14 @@ export default function TodoItem({
       {isEditing ? (
         <input
           value={editInput}
+          placeholder="수정 중.."
           onChange={(e) => setEditInput(e.target.value)}
           onKeyDown={handleKeyPress}
           style={{
             width: "365px",
             height: "35px",
-            fontSize: "16px",
-            paddingLeft: "10px",
+            textAlign: "center",
+            color: "gray",
           }}
         />
       ) : (
@@ -50,7 +51,7 @@ export default function TodoItem({
 
       <div
         onClick={() => {
-          isEditing ? onEditComplete(id, editInput) : onEdit(id);
+          isEditing ? onEditComplete(id, editInput) : onEditStart(id);
         }}
         style={{
           width: "35px",
