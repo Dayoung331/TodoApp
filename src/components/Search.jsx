@@ -2,7 +2,12 @@ import { Input } from "@chakra-ui/react";
 
 export default function Search({ searchInput, onSearchChange }) {
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
       <Input
         type="text"
         placeholder="검색어를 입력하세요."

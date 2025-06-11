@@ -10,7 +10,7 @@ import StopWatch from "./practice/StopWatch";
 import Timer from "./practice/Timer";
 import TodoList from "./components/TodoList";
 
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapExample from "./practice/BootstrapExample";
 import { TodoProvider } from "./components/TodoProvider";
 
