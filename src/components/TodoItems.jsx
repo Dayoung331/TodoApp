@@ -10,8 +10,6 @@ export default function TodoItems({
   onEditStart,
   onEditComplete,
 }) {
-  console.log(`searchInput 잘 넘어왔나? ${searchInput}`);
-  console.log(`toDoList는? ${toDoList}`);
   const listToShow =
     searchInput.trim() === ""
       ? toDoList

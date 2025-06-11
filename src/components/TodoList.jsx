@@ -24,8 +24,6 @@ export default function TodoList() {
     completeEditToDo,
   } = useTodo();
 
-  console.log(`부모 컴포넌트에서 searchInput 잘 넘어갔나? ${searchInput}`);
-
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}

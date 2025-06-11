@@ -1,3 +1,12 @@
+import {
+  Box,
+  Input,
+  Flex,
+  Center,
+  Text,
+  ColorModeContext,
+} from "@chakra-ui/react";
+
 export default function TodoItem({
   id,
   text,
@@ -16,54 +25,66 @@ export default function TodoItem({
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <Flex>
       {isEditing ? (
-        <input
+        <Input
           value={editInput}
-          placeholder="수정 중.."
           onChange={(e) => setEditInput(e.target.value)}
           onKeyDown={handleKeyPress}
-          style={{
-            width: "365px",
-            height: "35px",
-            textAlign: "center",
-            color: "gray",
-          }}
+          focusBorderColor={color}
+          width="365px"
+          height="35px"
+          textAlign="center"
+          color="gray.500"
+          variant="outline"
+          autoFocus
         />
       ) : (
-        <div
+        <Center
+          bg={color}
+          color="black"
+          width="365px"
+          height="35px"
+          border="1px solid"
+          borderColor="gray.300"
+          cursor="pointer"
           onClick={() => onDelete(id)}
-          style={{
-            backgroundColor: color,
-            color: "black",
-            width: "365px",
-            height: "35px",
-            border: "1px solid gray",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            cursor: "pointer",
+          userSelect="none"
+          _hover={{
+            bg:
+              color === "#FFB3BA"
+                ? "#FFD6DB"
+                : color === "#FFDFBA"
+                ? "#FFE9D6"
+                : color === "#FFFFBA"
+                ? "#FFFFD6"
+                : color === "#BAFFC9"
+                ? "#D4FFE3"
+                : color === "#BAE1FF"
+                ? "#D6EEFF"
+                : color === "#D8BAFF"
+                ? "#E9D6FF"
+                : color, // 기본은 그냥 유지
           }}
         >
-          {text}
-        </div>
+          <Text mb={0}>{text}</Text>
+        </Center>
       )}
 
-      <div
-        onClick={() => {
-          isEditing ? onEditComplete(id, editInput) : onEditStart(id);
-        }}
-        style={{
-          width: "35px",
-          border: "1px solid gray",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          cursor: "pointer",
-        }}
+      <Center
+        width="35px"
+        height="35px"
+        border="1px solid"
+        borderColor="gray.300"
+        cursor="pointer"
+        onClick={() =>
+          isEditing ? onEditComplete(id, editInput) : onEditStart(id)
+        }
+        userSelect="none"
+        _hover={{ bg: "gray.200" }}
       >
         {isEditing ? "✅" : "✏️"}
-      </div>
-    </div>
+      </Center>
+    </Flex>
   );
 }
